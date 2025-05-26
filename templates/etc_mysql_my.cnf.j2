@@ -84,9 +84,11 @@ log_error_verbosity = 1
 #log-queries-not-using-indexes
 #
 # The following can be used as easy to replay backup logs or for replication.
-#server-id      = 1
-#log_bin            = /var/log/mysql/mysql-bin.log
-expire_logs_days    = 10
+server-id      = {{ mysql_server_id }}
+{% if mysql_log_bin is defined %}
+log_bin            = /var/log/mysql/mysql-bin.log
+{% endif %}
+expire_logs_days    = {{ mysql_expire_logs_days }}
 max_binlog_size     = 100M
 #binlog_do_db       = include_database_name
 #binlog_ignore_db   = include_database_name
