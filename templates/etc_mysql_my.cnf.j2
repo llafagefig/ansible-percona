@@ -92,6 +92,9 @@ max_binlog_size     = 100M
 {% if mysql_log_slave_update %}
 log_slave_updates=1
 {% endif %}
+report-host={{ inventory_hostname }}
+report-port=3306
+master-info-repository=TABLE
 
 # ** InnoDB
 # InnoDB is enabled by default with a 10MB datafile in /var/lib/mysql/.
