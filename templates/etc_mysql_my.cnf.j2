@@ -89,7 +89,7 @@ expire_logs_days    = {{ mysql_expire_logs_days }}
 max_binlog_size     = 100M
 #binlog_do_db       = include_database_name
 #binlog_ignore_db   = include_database_name
-{% if mysql_log_slave_update %}
+{% if mysql_log_slave_updates %}
 log_slave_updates=1
 {% endif %}
 report-host={{ inventory_hostname }}
