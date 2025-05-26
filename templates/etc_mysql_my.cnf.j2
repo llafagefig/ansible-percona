@@ -22,9 +22,6 @@ port        = {{ mysql_port }}
 basedir     = /usr
 datadir     = {{ mysql_datadir }}
 tmpdir      = /tmp
-{% if  mysql_version is version('8.0', '>=') and mysql_disable_log_bin|bool %}
-disable_log_bin
-{% endif %}
 {% if  mysql_version is version('5.7', '<') %}
 # language is for pre-5.5. In 5.5 it is an alias for lc_messages_dir.
 language = {{ mysql_language }}
@@ -85,13 +82,16 @@ log_error_verbosity = 1
 #
 # The following can be used as easy to replay backup logs or for replication.
 server-id      = {{ mysql_server_id }}
-{% if mysql_log_bin is defined %}
+{% if mysql_log_bin %}
 log_bin            = /var/log/mysql/mysql-bin.log
 {% endif %}
 expire_logs_days    = {{ mysql_expire_logs_days }}
 max_binlog_size     = 100M
 #binlog_do_db       = include_database_name
 #binlog_ignore_db   = include_database_name
+{% if mysql_log_slave_update %}
+log_slave_updates=1
+{% endif %}
 
 # ** InnoDB
 # InnoDB is enabled by default with a 10MB datafile in /var/lib/mysql/.
