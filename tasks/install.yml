@@ -9,6 +9,11 @@
     name: gnupg2
     update_cache: yes
 
+- name: "Install numactl"
+  apt:
+    name: numactl
+    update_cache: yes
+
 - name: "Install percona-release package"
   apt:
     deb: "https://repo.percona.com/apt/percona-release_latest.{{ ansible_distribution_release }}_all.deb"
