@@ -19,9 +19,7 @@
 
 # https://www.percona.com/doc/percona-server/LATEST/installation/apt_repo.html
 - name: "Enable Percona repository (Percona version >= 8)"
-  command: "percona-release setup ps{{ mysql_version_major }}{{ mysql_version_minor }}"
-  when: mysql_version_major|int >= 8
-  changed_when: False     # TODO: check for task idempotency
+  command: "percona-release setup ps-{{ mysql_version_major }}{{ mysql_version_minor }}"
 
 - name: "Install python-is-python3 (Ubuntu >= Focal/20.04)"
   apt:
