@@ -1,0 +1,22 @@
+#
+# Percona Server systemd service file
+#
+
+[Unit]
+Description=Percona Server
+After=network.target
+After=local-fs.target remote-fs.target
+Requires=local-fs.target remote-fs.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=forking
+User=mysql
+Group=mysql
+PermissionsStartOnly=true
+ExecStart=/usr/bin/numactl --interleave=all /usr/sbin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid $MYSQLD_OPTS
+TimeoutSec=0
+Restart=on-failure
+RestartPreventExitStatus=1
